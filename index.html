@@ -38,9 +38,8 @@
       let imgClass = ""
       let figureClass = "fy fz ga gb gc fx ai paragraph-image";
       let figureCaptionClass = "gq gr cq co cp gs gt cd en eo cf ci";
-      console.log( "ready!" );
       let parseDOM;
-      let hostUrl = "http://35.243.103.74:8301/parser?url=";
+      let hostUrl = "https://rss.kaiya.ml/parser?url=";
       $.ajax({
         url: hostUrl + url,
       }).done(function (data) {
