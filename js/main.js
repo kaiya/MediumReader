@@ -32,6 +32,9 @@ let h2Class = "contenth2";
 let imgClass = ""
 let figureClass = "fy fz ga gb gc fx ai paragraph-image";
 let figureCaptionClass = "gq gr cq co cp gs gt cd en eo cf ci";
+let ulClass = pClass; // equal to pclass
+let blockquoteClass = "blockquote";
+let blockquotepClass = "blockquotep";
 let parseDOM;
 let hostUrl = "https://rss.kaiya.ml/parser?url=";
 $.ajax({
@@ -56,6 +59,9 @@ $.ajax({
   $("#contentParent img").addClass(imgClass);
   $("#contentParent figure").addClass(figureClass);
   $("#contentParent figcaption").addClass(figureCaptionClass);
+  $("#contentParent ul").addClass(ulClass);
+  $("#contentParent blockquote").addClass(blockquoteClass);
+  $("#contentParent blockquote p").addClass(blockquotepClass);
 
   // for HBR.org
   $(".alignnone").remove(); //remove default full size img
