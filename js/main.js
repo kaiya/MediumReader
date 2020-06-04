@@ -12,7 +12,7 @@ if (url == null) {
   let href = window.location.href;
   console.log("href:" + href);
   console.log("http index: " + href.lastIndexOf('http'));
-  console.log("url: " href.substring(href.lastIndexOf('http')));
+  console.log("url: " + href.substring(href.lastIndexOf('http')));
   url = href.substring(href.lastIndexOf('http'));
   if (!url.startsWith("http")) {
     url = null;
