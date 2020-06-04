@@ -1,10 +1,86 @@
 <html>
 <head>
-    <title data-rh="true">How to Make this Moment the Turning Point for Real Change</title>
+    <title data-rh="true">Title</title>
     <meta data-rh="true" charset="utf-8" />
     <meta data-rh="true" name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/style/m2.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/style/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="js/Readability.js"></script> -->
+    <script type="text/javascript">
+      // url order : 1. param 2. path 3. default
+      $.urlParam = function(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results==null) {
+           return null;
+        }
+        return decodeURI(results[1]) || 0;
+      }
+      let url = $.urlParam("url");
+      if (url == null) {
+        let href = window.location.href;
+        url = href.substring(href.lastIndexOf('/') + 1);
+        if (!url.startsWith("http")) {
+          url = null;
+        }
+      }
+
+      if (url == null) {
+        url = "https://hbr.org/2020/03/how-business-leaders-can-champion-democracy";
+      }
+      
+      let pClass = "gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw";
+      let aClass = "bx fl hq hr hs ht";
+      let spanClass = "cd b ce cf cg ch r ci cj";
+      let h1Class = "contenth1";
+      let h2Class = "contenth2";
+      // let imgClass = "gd ge s t u gf ai gp";
+      let imgClass = ""
+      let figureClass = "fy fz ga gb gc fx ai paragraph-image";
+      let figureCaptionClass = "gq gr cq co cp gs gt cd en eo cf ci";
+      console.log( "ready!" );
+      let parseDOM;
+      let hostUrl = "http://35.243.103.74:8301/parser?url=";
+      $.ajax({
+        url: hostUrl + url,
+      }).done(function (data) {
+        // console.log(data);
+        document.title = data.title;
+        $("#titleStrong").html(data.title);
+        $("#authorA").html(data.author);
+        // $("#pubDateA").html(""); //replace publication date
+        let time = Math.round(data.word_count / 300); //average 300 word per minute
+        $("#timeDiv").append(" · " + time +" min read")
+        $("#leadImg").attr("src", data.lead_image_url);
+        $("#fullSizeFig").html(data.title); // cap by title
+        // parseDOM = $.parseHTML(data.content);
+        $("#contentParent").html(data.content);
+        $("#contentParent p").addClass(pClass);
+        $("#contentParent a").addClass(aClass);
+        $("#contentParent span").addClass(spanClass);
+        $("#contentParent h1").addClass(h1Class);
+        $("#contentParent h2").addClass(h2Class);
+        $("#contentParent img").addClass(imgClass);
+        $("#contentParent figure").addClass(figureClass);
+        $("#contentParent figcaption").addClass(figureCaptionClass);
+
+        // for HBR.org
+        $(".alignnone").remove(); //remove default full size img
+        $(".article-promo").remove(); //remove ads
+        $(".font-whitney").remove(); //remove table of contents.
+        $(".font-national-compressed").remove();
+
+        // for BBC
+        $(".media-landscape").remove(); //remove default full size img
+        $(".byline").remove();
+
+      });
+
+        // var article = new Readability($.parseHTML(url)).parse();
+        // console.log(article);
+     
+      
+    </script>
     <style type="text/css">
         .contenth1{
             line-height: 1.12;
@@ -105,7 +181,9 @@
                                 <div class="dc dd ap ce de b df dg dh di dj dk dl dm dn do dp">
                                     <!-- <h1 class="de b df dq dh dr dj ds dl dt dn du ap"> -->
                                    <h1 class="de b df dq dr dj ds dl dt dn du ap">
-                                       <strong class="bk">How to Make this Moment the Turning Point for Real Change</strong>
+                                       <strong id="titleStrong" class="bk">
+                                         <!-- article title -->
+                                       </strong>
                                    </h1> 
                                 </div>
                                 <div class="dv">
@@ -130,7 +208,7 @@
                                                        <span class="cd b ce cf cg ch r ap q">
                                                            <div class="el n o em">
                                                                <span class="cd en eo cf av ep eq as at au ap">
-                                                                   <a class="bx by bg bh bi bj bk bl bm bn er bq br cb cc" rel="noopener" href="#">Barack Obama</a>
+                                                                   <a class="bx by bg bh bi bj bk bl bm bn er bq br cb cc" rel="noopener" href="#" id="authorA">Kaiya Xiong</a>
                                                                </span>
                                                                <div class="es r bw h">
                                                                    <button class="et ap q eu ev ew ex ey bn cb ez fa fb fc fd fe ff cd b ce fg fh ch fi fj cr fk fl bq">Follow</button>
@@ -141,9 +219,8 @@
                                                </div>
                                                <span class="cd b ce cf cg ch r ci cj">
                                                    <span class="cd en eo cf av ep eq as at au ci">
-                                                      <div>
-                                                          <a class="bx by bg bh bi bj bk bl bm bn er bq br cb cc" rel="noopener" href="#">Jun 1</a> 
-                                                          · 4 min read
+                                                      <div id="timeDiv">
+                                                          <a id="pubDateA" class="bx by bg bh bi bj bk bl bm bn er bq br cb cc" rel="noopener" href="#">Jun 1</a>
                                                       </div> 
                                                    </span>
                                                </span>
@@ -188,62 +265,19 @@
                         <div class="fx ai">
                             <figure class="fy fz ga gb gc fx ai paragraph-image">
                                <div class="gi r ea gj">
-                                   <div class="gk gl r">
-                                       <img width="100%" src="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/img/couples.jpg">
+                                   <!-- <div class="gk gl r"> -->
+                                    <div class="r">
+                                       <img width="100%" id="leadImg" src="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/img/couples.jpg">
+                                       <!-- full size image -->
                                        <!-- <img class="gd ge s t u gf ai gp"> -->
                                    </div>
                                </div> 
-                               <figcaption class="gq gr cq co cp gs gt cd en eo cf ci">Figure Caption</figcaption>
+                               <figcaption id="fullSizeFig" class="gq gr cq co cp gs gt cd en eo cf ci"></figcaption>
                             </figure>
                         </div>
                         <div class="n p">
-                            <div class="z ab ac ae af db ah ai">
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    Normally, one of the most striking features of the White House is its nearness. For years, tourists who stroll down Pennsylvania Avenue have been startled to come so close to the building, which is situated with a confident, open face to the world, a contrast to the secluded warrens of power in Beijing or Moscow. In recent months, that has been less true. Last summer, the Trump Administration started building a new thirteen-foot fence, twice the height of the old one, equipped with “anti-climb and intrusion detection technology.” It closed off Pennsylvania Avenue to pedestrians and cloaked the building behind a tall, white construction wall. When protests gave way to violence over the weekend, police expanded the realm of isolation, sealing off Lafayette Park and pushing the public farther away. On Monday, protesters returned to nearby streets. By late afternoon, several hundred had gathered.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably 
-                                    <a href="#" class="bx fl hq hr hs ht" target="_blank" rel="noopener nofollow">won’t go away</a>
-                                    understood.
-                                </p>
-                                <h1 id="bd60" class="contenth1" data-selectable-paragraph="">The Dangers of Conspiratorial Thinking</h1>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <h2 id="d1c8" class="contenth2" data-selectable-paragraph="">Once You See a Conspiracy, You Can’t Unsee It</h2>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
-                                <p class="gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw">
-                                    First, the waves of protests across the country represent a genuine and legitimate frustration over a decades-long failure to reform police practices and the broader criminal justice system in the United States. The overwhelming majority of participants have been peaceful, courageous, responsible, and inspiring. They deserve our respect and support, not condemnation — something that police in cities like Camden and Flint have commendably understood.
-                                </p>
+                            <div id="contentParent" class="z ab ac ae af db ah ai">
+                                <!-- article content -->
                             </div>
                         </div>
                     </section>
