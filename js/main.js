@@ -9,7 +9,7 @@ $.urlParam = function(name){
 let url = $.urlParam("url");
 if (url == null) {
   let href = window.location.href;
-  url = href.substring(href.lastIndexOf('/') + 1);
+  url = href.substring(href.lastIndexOf('https'));
   if (!url.startsWith("http")) {
     url = null;
   }
