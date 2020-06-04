@@ -7,13 +7,13 @@ $.urlParam = function(name){
   return decodeURI(results[1]) || 0;
 }
 let url = $.urlParam("url");
-console.log("url param: " + url);
+
 if (url == null) {
   let href = window.location.href;
-  console.log("href:" + href);
-  console.log("http index: " + href.lastIndexOf('http'));
-  console.log("url: " + href.substring(href.lastIndexOf('http')));
   url = href.substring(href.lastIndexOf('http'));
+  if (url.startsWith("https://medium.kaiya.ml")) { //bypass our own site
+    url = null;
+  }
   if (!url.startsWith("http")) {
     url = null;
   }
