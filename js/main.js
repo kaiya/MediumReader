@@ -14,7 +14,7 @@ if (url == null) {
   if (url.startsWith("https://medium.kaiya.ml")) { //bypass our own site
     url = null;
   }
-  if (!url.startsWith("http")) {
+  if (url != null && !url.startsWith("http")) {
     url = null;
   }
 }
