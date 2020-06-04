@@ -3,83 +3,11 @@
     <title data-rh="true">Title</title>
     <meta data-rh="true" charset="utf-8" />
     <meta data-rh="true" name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/style/m2.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/style/style.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <!-- <script type="text/javascript" src="js/Readability.js"></script> -->
-    <script type="text/javascript">
-      // url order : 1. param 2. path 3. default
-      $.urlParam = function(name){
-        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-        if (results==null) {
-           return null;
-        }
-        return decodeURI(results[1]) || 0;
-      }
-      let url = $.urlParam("url");
-      if (url == null) {
-        let href = window.location.href;
-        url = href.substring(href.lastIndexOf('/') + 1);
-        if (!url.startsWith("http")) {
-          url = null;
-        }
-      }
-
-      if (url == null) {
-        url = "https://hbr.org/2020/03/how-business-leaders-can-champion-democracy";
-      }
-      
-      let pClass = "gu hi ap ce gw b gx gy hj ha hk hb hc hl hd he hm hf hg hn hh cw";
-      let aClass = "bx fl hq hr hs ht";
-      let spanClass = "cd b ce cf cg ch r ci cj";
-      let h1Class = "contenth1";
-      let h2Class = "contenth2";
-      // let imgClass = "gd ge s t u gf ai gp";
-      let imgClass = ""
-      let figureClass = "fy fz ga gb gc fx ai paragraph-image";
-      let figureCaptionClass = "gq gr cq co cp gs gt cd en eo cf ci";
-      let parseDOM;
-      let hostUrl = "https://rss.kaiya.ml/parser?url=";
-      $.ajax({
-        url: hostUrl + url,
-      }).done(function (data) {
-        // console.log(data);
-        document.title = data.title;
-        $("#titleStrong").html(data.title);
-        $("#authorA").html(data.author);
-        // $("#pubDateA").html(""); //replace publication date
-        let time = Math.round(data.word_count / 300); //average 300 word per minute
-        $("#timeDiv").append(" · " + time +" min read")
-        $("#leadImg").attr("src", data.lead_image_url);
-        $("#fullSizeFig").html(data.title); // cap by title
-        // parseDOM = $.parseHTML(data.content);
-        $("#contentParent").html(data.content);
-        $("#contentParent p").addClass(pClass);
-        $("#contentParent a").addClass(aClass);
-        $("#contentParent span").addClass(spanClass);
-        $("#contentParent h1").addClass(h1Class);
-        $("#contentParent h2").addClass(h2Class);
-        $("#contentParent img").addClass(imgClass);
-        $("#contentParent figure").addClass(figureClass);
-        $("#contentParent figcaption").addClass(figureCaptionClass);
-
-        // for HBR.org
-        $(".alignnone").remove(); //remove default full size img
-        $(".article-promo").remove(); //remove ads
-        $(".font-whitney").remove(); //remove table of contents.
-        $(".font-national-compressed").remove();
-
-        // for BBC
-        $(".media-landscape").remove(); //remove default full size img
-        $(".byline").remove();
-
-      });
-
-        // var article = new Readability($.parseHTML(url)).parse();
-        // console.log(article);
-     
-      
-    </script>
+    <script src="js/main.js" async="true"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/style/m2.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/style/style.css">
     <style type="text/css">
         .contenth1{
             line-height: 1.12;
@@ -197,7 +125,7 @@
                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M28.5 1.2A27.45 27.45 0 0 0 4.06 15.82L3 15.27A28.65 28.65 0 0 1 28.5 0C39.64 0 49.29 6.2 54 15.27l-1.06.55A27.45 27.45 0 0 0 28.5 1.2zM4.06 41.18A27.45 27.45 0 0 0 28.5 55.8a27.45 27.45 0 0 0 24.44-14.62l1.06.55A28.65 28.65 0 0 1 28.5 57 28.65 28.65 0 0 1 3 41.73l1.06-.55z"></path>
                                                            </svg>
                                                        </div>
-                                                       <img alt="avatar" class="r ej ec eb" src="https://cdn.jsdelivr.net/gh/kaiya/img@master/avatar.png" width="48" height="48">
+                                                       <img alt="avatar" class="r ej ec eb" src="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/img/avatar.png" width="48" height="48">
                                                    </div>
                                                </a>
                                            </div>
@@ -266,7 +194,7 @@
                                <div class="gi r ea gj">
                                    <!-- <div class="gk gl r"> -->
                                     <div class="r">
-                                       <img width="100%" id="leadImg" src="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/img/couples.jpg">
+                                       <img width="100%" id="leadImg" src="https://cdn.jsdelivr.net/gh/kaiya/MediumReader@master/img/placeholder.jpg">
                                        <!-- full size image -->
                                        <!-- <img class="gd ge s t u gf ai gp"> -->
                                    </div>
