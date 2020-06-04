@@ -11,7 +11,7 @@ let url = $.urlParam("url");
 if (url == null) {
   let href = window.location.href;
   url = href.substring(href.lastIndexOf('http'));
-  if (url.startsWith("https://medium.kaiya.ml")) { //bypass our own site
+  if (url.startsWith("https://medium.kaiya.ml") || url.startsWith("https://kaiya.github.io")) { //bypass our own site
     url = null;
   }
   if (url != null && !url.startsWith("http")) {
@@ -34,7 +34,6 @@ let figureClass = "fy fz ga gb gc fx ai paragraph-image";
 let figureCaptionClass = "gq gr cq co cp gs gt cd en eo cf ci";
 let parseDOM;
 let hostUrl = "https://rss.kaiya.ml/parser?url=";
-console.log("before ajax");
 $.ajax({
   url: hostUrl + url,
 }).done(function (data) {
@@ -68,7 +67,4 @@ $.ajax({
   $(".media-landscape").remove(); //remove default full size img
   $(".byline").remove();
 
-});
-$(document).ready(function(){
-  console.log("ready!");
 });
