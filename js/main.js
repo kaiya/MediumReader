@@ -92,3 +92,9 @@ $.ajax({
   $(".byline").remove();
 
 });
+
+$(document).ready(function(){
+    $("#leadImg").on("error", function(){
+        $(this).attr('src', './img/placeholder.jpg');
+    });
+});
