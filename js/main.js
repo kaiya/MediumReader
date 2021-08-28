@@ -11,7 +11,7 @@ let url = $.urlParam("url");
 if (url == null) {
   let href = window.location.href;
   url = href.substring(href.lastIndexOf('http'));
-  if (url.startsWith("https://medium.kaiya.ml") || url.startsWith("https://kaiya.github.io")) { //bypass our own site
+  if (url.startsWith("https://alt.kaiya.tk") || url.startsWith("https://kaiya.github.io")) { //bypass our own site
     url = null;
   }
   if (url != null && !url.startsWith("http")) {
@@ -39,7 +39,7 @@ let ulliClass = "ulli";
 let olliClass = "olli";
 let codeClass = "code";
 
-let hostUrl = "https://rss.kaiya.ml/parser?url=";
+let hostUrl = "https://rss.kaiya.tk/parser?url=";
 $.ajax({
   url: hostUrl + url,
 }).done(function (data) {
