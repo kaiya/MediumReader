@@ -43,7 +43,6 @@ let hostUrl = "https://rss.kaiya.ml/parser?url=";
 $.ajax({
   url: hostUrl + url,
 }).done(function (data) {
-  // console.log(data);
   //parse article content : remove all classes
   var html = $.parseHTML(data.content);
   $(html).find(".paragraph-image").each(function(){
